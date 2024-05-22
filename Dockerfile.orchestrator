@@ -1,0 +1,18 @@
+# Builder
+FROM golang:1.22.2 as build
+
+WORKDIR /app
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o orchestrator ./cmd/orchestrator
+
+
+# Runner
+FROM scratch
+
+WORKDIR /app
+
+COPY --from=build /app/orchestrator .
+
+ENTRYPOINT ["./orchestrator"]

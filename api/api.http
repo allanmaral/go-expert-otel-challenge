@@ -1,0 +1,31 @@
+@baseurl = http://localhost:8080
+
+### Weather from valid CEP
+
+POST {{baseurl}}/api/weather
+Content-Type: application/json
+
+{
+  "cep": "70150900"
+}
+
+
+
+### Weather from non-existent CEP
+
+POST {{baseurl}}/api/weather
+Content-Type: application/json
+
+{
+  "cep": "99999999"
+}
+
+
+### Weather from invalid CEP
+
+POST {{baseurl}}/api/weather
+Content-Type: application/json
+
+{
+  "cep": "123"
+}

@@ -1,0 +1,18 @@
+# Builder
+FROM golang:1.22.2 as build
+
+WORKDIR /app
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o input ./cmd/input
+
+
+# Runner
+FROM scratch
+
+WORKDIR /app
+
+COPY --from=build /app/input .
+
+ENTRYPOINT ["./input"]
